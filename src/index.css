@@ -4,7 +4,7 @@
   --theme: #2970ff;
   --black: #000;
   --white: #fff;
-  --shadow-color: rgba(277, 277, 277, 0.75);
+  --shadow: 0px 0px 30px 8px rgba(227, 227, 227, 0.75);
 }
 
 body {
@@ -15,3 +15,7 @@ body {
 input {
   font-family: "Montserrat", sans-serif;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -11,3 +11,4 @@ Currently, two official plugins are available:
 
   - config project --setting file structure, fonts, root var in CSS
   - firebase setup
+  - setup react-router-dom
