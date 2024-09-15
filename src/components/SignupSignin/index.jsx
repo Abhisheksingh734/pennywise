@@ -2,15 +2,17 @@
 import { toast } from "react-toastify";
 import Button from "../Button";
 import Input from "../Input";
-import { auth, db } from "../../firebase";
+import { auth, db, provider } from "../../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import "./styles.css";
 import { useState } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { GoogleAuthProvider } from "firebase/auth/web-extension";
 
 const SignUpSignin = () => {
   const [name, setName] = useState("");
@@ -64,23 +66,28 @@ const SignUpSignin = () => {
   function loginUsingEmail() {
     console.log("Email", email);
     console.log("Password", password);
+    setLoading(true);
 
     if (email != "" && password != "") {
       //signin user
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
+          setLoading(false);
           // Signed in
           const user = userCredential.user;
           toast.success("user logged In!");
           console.log("User Loggeed in >>", user);
+
           navigate("/dashboard");
           // ...
         })
         .catch((error) => {
+          setLoading(false);
           const errorMessage = error.message;
           toast.error(errorMessage);
         });
     } else {
+      setLoading(false);
       toast.error("All fields are Mandatory!");
     }
   }
@@ -88,6 +95,7 @@ const SignUpSignin = () => {
   async function createDoc(user) {
     //mke sure doc with uid doesn't exists
     // create a doc.
+    setLoading(true);
 
     if (!user) return;
 
@@ -103,11 +111,45 @@ const SignUpSignin = () => {
           createdAt: new Date(),
         });
         toast.success("Doc created!");
+        setLoading(false);
       } catch (e) {
         toast.error(e.message);
+        setLoading(false);
       }
     } else {
       toast.error("Doc already created");
+      setLoading(false);
+    }
+  }
+
+  function googleAuth() {
+    setLoading(true);
+    try {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+          // The signed-in user info.
+          const user = result.user;
+          // IdP data available using getAdditionalUserInfo(result)
+          // ...
+          console.log("user>>>", user);
+          createDoc(user);
+          navigate("/dashboard");
+          setLoading(false);
+          toast.success("User Authenticated");
+        })
+        .catch((error) => {
+          // Handle Errors here.
+
+          const errorMessage = error.message;
+          toast.error(errorMessage);
+
+          setLoading(false);
+        });
+    } catch (e) {
+      toast.error(e.message);
     }
   }
 
@@ -143,6 +185,7 @@ const SignUpSignin = () => {
               <p style={{ textAlign: "center", margin: 0 }}> or</p>
               <Button
                 disabled={loading}
+                onClick={googleAuth}
                 text={loading ? "Loading..." : "Login Using Google"}
                 blue={true}
               />
@@ -197,6 +240,7 @@ const SignUpSignin = () => {
             <p style={{ textAlign: "center", margin: 0 }}> or</p>
             <Button
               disabled={loading}
+              onClick={googleAuth}
               text={loading ? "Loading..." : "Signup Using Google"}
               blue={true}
             />
