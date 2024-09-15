@@ -13,3 +13,10 @@
   margin-bottom: 1rem;
   text-align: center;
 }
+
+.p-login {
+  text-align: center;
+  font-weight: 300;
+  font-size: 0.8rem;
+  margin: 0;
+}
