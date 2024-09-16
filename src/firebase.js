@@ -5,15 +5,16 @@ import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 // Firebase configuration using environment variables
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+  apiKey: String(import.meta.env.VITE_FIREBASE_API_KEY),
+  authDomain: "pennywise-9c3f5.firebaseapp.com",
+  projectId: "pennywise-9c3f5",
+  storageBucket: "pennywise-9c3f5.appspot.com",
+  messagingSenderId: "910287397881",
+  appId: "1:910287397881:web:6661cb070261c29bfa5328",
+  measurementId: "G-S5HJWJC8QR",
 };
 
+console.log(import.meta.env.VITE_FIREBASE_API_KEY);
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
