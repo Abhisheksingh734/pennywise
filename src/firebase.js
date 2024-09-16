@@ -5,7 +5,7 @@ import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 // Firebase configuration using environment variables
 const firebaseConfig = {
-  apiKey: String(import.meta.env.VITE_FIREBASE_API_KEY),
+  apiKey: "AIzaSyAtjATCjHFn2Iqds_nbXOQEGoT6g3dpvB8",
   authDomain: "pennywise-9c3f5.firebaseapp.com",
   projectId: "pennywise-9c3f5",
   storageBucket: "pennywise-9c3f5.appspot.com",
