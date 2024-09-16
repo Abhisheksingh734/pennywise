@@ -20,6 +20,20 @@
   gap: 16px;
 }
 
+/* Adjust card layout for smaller screens */
+@media (max-width: 768px) {
+  .my-row {
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+  }
+
+  .my-card {
+    min-width: 100%; /* Make cards take full width */
+    margin: 1rem 0; /* Adjust margins for smaller screens */
+  }
+}
+
 .my-card p {
   margin: 0rem;
 }

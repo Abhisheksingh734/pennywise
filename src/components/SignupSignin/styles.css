@@ -1,22 +1,72 @@
 .signup-wrapper {
-  width: 70%;
+  width: 90%; /* Adjusted width for smaller screens */
   max-width: 450px;
   height: auto;
   box-shadow: var(--shadow);
   border-radius: 1rem;
-  padding: 1rem;
+  padding: 2rem; /* Adjust padding for a comfortable view */
+  margin: 2rem auto; /* Center the form and add some space */
+  background-color: #fff;
 }
 
 .title {
   font-weight: 500;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+  font-size: 1.5rem; /* Increased font size for better readability */
+  margin-bottom: 1.5rem;
   text-align: center;
 }
 
 .p-login {
   text-align: center;
   font-weight: 300;
-  font-size: 0.8rem;
-  margin: 0;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+/* Add media query for smaller devices */
+@media (max-width: 768px) {
+  .signup-wrapper {
+    width: 100%; /* Full width on small screens */
+    padding: 1.5rem;
+    margin: 1rem auto; /* Reduce margin on small screens */
+  }
+
+  .title {
+    font-size: 1.2rem; /* Smaller title font size for mobile */
+  }
+
+  .p-login {
+    font-size: 0.8rem; /* Adjust font size for mobile screens */
+  }
+
+  /* Adjust button size for smaller screens */
+  button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+
+  input {
+    font-size: 1rem; /* Adjust input font size for smaller screens */
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-wrapper {
+    padding: 1rem; /* Reduce padding on very small screens */
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .p-login {
+    font-size: 0.7rem;
+  }
+
+  input,
+  button {
+    font-size: 0.9rem; /* Adjust font sizes for mobile */
+  }
 }
