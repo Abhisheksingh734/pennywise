@@ -14,10 +14,14 @@ import moment from "moment";
 
 function Dashboard() {
   const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [user] = useAuthState(auth);
   const [isExpenseModalVisible, setIsExpenseModalVisible] = useState(false);
   const [isIncomeModalVisible, setIsIncomeModalVisible] = useState(false);
+
+  const [income, setIncome] = useState(0);
+  const [expense, setExpense] = useState(0);
+  const [totalBalance, setTotalBalance] = useState(0);
 
   const showExpenseModal = () => {
     setIsExpenseModalVisible(true);
@@ -54,6 +58,8 @@ function Dashboard() {
       );
       console.log("Document written with ID: ", docRef.id);
       toast.success("Transaction Added!");
+      setTransactions((prevTransactions) => [...prevTransactions, transaction]);
+      calculateBalance();
     } catch (e) {
       console.error("Error adding document: ", e);
 
@@ -62,8 +68,35 @@ function Dashboard() {
   }
 
   useEffect(() => {
-    fetchTransactions();
-  }, []);
+    if (user) {
+      fetchTransactions(); // Fetch transactions only when user is available
+    } else {
+      setLoading(false); // Set loading to false if no user is available
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (!loading) {
+      calculateBalance(); // Only calculate when loading is false
+    }
+  }, [transactions, loading]);
+
+  function calculateBalance() {
+    let incomeTotal = 0;
+    let expenseTotal = 0;
+
+    transactions.forEach((transaction) => {
+      if (transaction.type === "income") {
+        incomeTotal += transaction.amount;
+      } else {
+        expenseTotal += transaction.amount;
+      }
+    });
+
+    setIncome(incomeTotal);
+    setExpense(expenseTotal);
+    setTotalBalance(incomeTotal - expenseTotal);
+  }
 
   async function fetchTransactions() {
     setLoading(true);
@@ -75,12 +108,13 @@ function Dashboard() {
         // doc.data() is never undefined for query doc snapshots
         transactionsArray.push(doc.data());
       });
-      setTransactions(transactionsArray);
+      setTransactions(transactionsArray); // Set the fetched transactions
       console.log("Transactions Array - ", transactionsArray);
       toast.success("Transactions Fetched!");
+      setLoading(false); // Make sure to stop loading after data is fetched
     }
-    setLoading(false);
   }
+
   return (
     <div>
       <Header />
@@ -89,6 +123,9 @@ function Dashboard() {
       ) : (
         <>
           <Cards
+            income={income}
+            expense={expense}
+            totalBalance={totalBalance}
             showExpenseModal={showExpenseModal}
             showIncomeModal={showIncomeModal}
           />
