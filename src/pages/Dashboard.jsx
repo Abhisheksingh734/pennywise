@@ -11,6 +11,7 @@ import { addDoc, collection, getDocs, query } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import moment from "moment";
+import TransactionTable from "../components/TransactionTable";
 
 function Dashboard() {
   const [transactions, setTransactions] = useState([]);
@@ -138,7 +139,8 @@ function Dashboard() {
             isIncomeModalVisible={isIncomeModalVisible}
             handleIncomeCancel={handleIncomeCancel}
             onFinish={onFinish}
-          />{" "}
+          />
+          <TransactionTable transactions={transactions} />
         </>
       )}
     </div>

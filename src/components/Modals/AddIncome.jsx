@@ -64,9 +64,10 @@ function AddIncomeModal({
           rules={[{ required: true, message: "Please select a tag!" }]}
         >
           <Select className="select-input-2">
+            <Select.Option value="pocketmoney">Pocket Money</Select.Option>
             <Select.Option value="salary">Salary</Select.Option>
             <Select.Option value="freelance">Freelance</Select.Option>
-            <Select.Option value="investment">Investment</Select.Option>
+            <Select.Option value="others">Others</Select.Option>
             {/* Add more tags here */}
           </Select>
         </Form.Item>

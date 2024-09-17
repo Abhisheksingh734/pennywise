@@ -6,6 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { signOut } from "firebase/auth";
+import userDefault from "../../assets/user.svg";
 
 const Header = () => {
   function logoutFnc() {
@@ -39,9 +40,16 @@ const Header = () => {
     <div className="navbar">
       <p className="logo">PennyWise</p>
       {user && (
-        <p className="logo link" onClick={logoutFnc}>
-          Logout
-        </p>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <img
+            style={{ borderRadius: "50%", height: "1.5rem", width: "1.5rem" }}
+            src={user.photoURL ? user.photoURL : userDefault}
+            alt=""
+          />
+          <p className="logo link" onClick={logoutFnc}>
+            Logout
+          </p>
+        </div>
       )}
     </div>
   );

@@ -14,7 +14,7 @@ function Cards({
     <div>
       <Row className="my-row">
         <Card className="my-card " title="Current Balance">
-          <p>${totalBalance}</p>
+          <p>₹{totalBalance}</p>
           <Button text={"Reset Balance"} blue={true} />
         </Card>
 
@@ -23,7 +23,7 @@ function Cards({
           title="Total Income"
           onClick={showIncomeModal}
         >
-          <p>${income}</p>
+          <p>₹{income}</p>
           <Button text={"Add Income"} blue={true} />
         </Card>
         <Card
@@ -31,7 +31,7 @@ function Cards({
           title="Total Expenses"
           onClick={showExpenseModal}
         >
-          <p>${expense}</p>
+          <p>₹{expense}</p>
           <Button text={"Add Expences"} blue={true} />
         </Card>
       </Row>
