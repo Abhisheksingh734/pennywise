@@ -110,14 +110,13 @@ const SignUpSignin = () => {
           photoURL: user.photoURL ? user.photoURL : "",
           createdAt: new Date(),
         });
-        toast.success("Doc created!");
+        // toast.success("Doc created!");
         setLoading(false);
       } catch (e) {
         toast.error(e.message);
         setLoading(false);
       }
     } else {
-      toast.error("Doc already created");
       setLoading(false);
     }
   }
